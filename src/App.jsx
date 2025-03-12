@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 import text from './data';
 
 const App = () => {
@@ -15,10 +16,10 @@ const App = () => {
 
   return (
     <main>
-      <form className='form'>
+      <form className='form' onSubmit={handleGenerate}>
         <h2>tired of boring lorem ipsum?</h2>
         <div className='formRow'>
-          <label htmlFor='count'>Paragraphs:</label>
+          <label htmlFor='count'>paragraphs:</label>
           <input
             type='number'
             id='count'
@@ -27,15 +28,17 @@ const App = () => {
             value={counter}
             onChange={(e) => setCounter(+e.target.value)}
           />
-          <button type='submit' className='btn' onClick={handleGenerate}>
+          <button type='submit' className='btn'>
             generate
           </button>
         </div>
       </form>
       <section className='resultContainer'>
-        {textToShow.map((line, index) => {
+        {textToShow.map((line) => {
+          const id = nanoid();
+
           return (
-            <p className='textLine' key={index}>
+            <p className='textLine' key={id}>
               {line}
             </p>
           );
